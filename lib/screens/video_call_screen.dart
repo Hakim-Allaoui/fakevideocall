@@ -108,9 +108,13 @@ class _VideoCallScreenState extends State<VideoCallScreen>
                   onPressed: () {
                     _controller.pause();
                     controller!.dispose();
-                    ads.loadAndShowInter(context, () {
-                      Navigator.pop(context);
-                    });
+                    ads.loadAndShowInter(
+                      context: context,
+                      frequency: 0,
+                      onFinished: () {
+                        Navigator.pop(context);
+                      },
+                    );
                   },
                   shape: BoxShape.circle,
                   color: Colors.red,

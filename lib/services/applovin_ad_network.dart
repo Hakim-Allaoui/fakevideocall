@@ -18,7 +18,7 @@ class ApplovinAdNetwork {
         ["792a89f5-c67c-4eaf-9a77-e5bfff0844b3"]);
 
     //TODO: comment the following
-    AppLovinMAX.showMediationDebugger();
+    // AppLovinMAX.showMediationDebugger();
     Tools.logger.i(sdkConfiguration);
   }
 
@@ -64,8 +64,19 @@ class ApplovinAdNetwork {
     }
   }
 
-  loadAndShowInter(
-      BuildContext context, String id, VoidCallback onFinished) async {
+  loadAndShowInter({
+    required BuildContext context,
+    required String id,
+    required VoidCallback onFinished,
+    int? frequency,
+  }) async {
+    int num = Tools.getRandomInt(maxNumber: frequency ?? 0);
+    Tools.logger.i("frequency result: $num");
+    if (num != 0) {
+      onFinished();
+      return;
+    }
+
     Tools.waitingDialog(
         context: context,
         process: () {

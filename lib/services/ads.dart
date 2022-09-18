@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fakevideocall/services/applovin_ad_network.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -85,13 +87,21 @@ class AdsHelper {
     }
   }
 
-  loadAndShowInter(BuildContext context, VoidCallback onFinished) async {
+  loadAndShowInter(
+      {required BuildContext context,
+      required VoidCallback onFinished,
+      int? frequency}) async {
     switch (Tools.allData?.ads!.adNetwork!.toLowerCase()) {
       case "admob":
         break;
       case "applovin":
         await applovin.loadAndShowInter(
-            context, Tools.allData!.ads!.ids!.inters![0], onFinished);
+          context: context,
+          id: Tools.allData!.ads!.ids!.inters![0],
+          onFinished: onFinished,
+          frequency: frequency!,
+        );
+
         break;
       case "unity":
         break;

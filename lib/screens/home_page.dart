@@ -82,17 +82,21 @@ class _HomePageState extends State<HomePage> {
                     AnimatedButton(
                       width: MediaQuery.of(context).size.width * 0.8,
                       onPressed: () async {
-                        await ads.loadAndShowInter(context, () {
-                          Tools.play();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (builder) => const IncomingCallScreen(
-                                nextScreen: VoiceCallScreen(),
+                        await ads.loadAndShowInter(
+                          context: context,
+                          frequency: 3,
+                          onFinished: () {
+                            Tools.play();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (builder) => const IncomingCallScreen(
+                                  nextScreen: VoiceCallScreen(),
+                                ),
                               ),
-                            ),
-                          );
-                        });
+                            );
+                          },
+                        );
                       },
                       child: Row(
                         children: const [
@@ -176,6 +180,10 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: ads.getBannerAd(),
+          )
         ],
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fakevideocall/utils/constansts.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:fakevideocall/widgets.dart';
@@ -20,19 +22,23 @@ class _ChatPageState extends State<ChatPage> {
   final ScrollController _controller = ScrollController();
   int msgIndex = 0;
 
+  bool typing = false;
+
   void _scrollDown() {
-    _controller.animateTo(
-      _controller.position.maxScrollExtent,
-      duration: const Duration(seconds: 1),
-      curve: Curves.fastOutSlowIn,
-    );
+    Timer(const Duration(milliseconds: 100), () {
+      _controller.animateTo(
+        _controller.position.maxScrollExtent,
+        curve: Curves.fastOutSlowIn,
+        duration: const Duration(milliseconds: 750),
+      );
+    });
   }
 
   @override
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       MessageModel otherMessageModel = MessageModel(
         sender: james,
         avatarUrl: james.avatarUrl,
@@ -68,24 +74,42 @@ class _ChatPageState extends State<ChatPage> {
             const SizedBox(
               width: 8.0,
             ),
-            const Expanded(
-              child: Text(
-                appName,
-                overflow: TextOverflow.ellipsis,
+            Expanded(
+              child: ListTile(
+                title: const Text(
+                  appName,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                subtitle: typing
+                    ? const Text(
+                        "Typing...",
+                        style: TextStyle(
+                          color: Colors.white54,
+                        ),
+                      )
+                    : const Text(""),
               ),
             ),
           ],
         ),
-        actions: const [
-          Icon(Icons.videocam),
-          Padding(
+        actions: [
+          const Icon(Icons.videocam),
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
           ),
-          Icon(Icons.call),
-          Padding(
+          const Icon(Icons.call),
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
           ),
-          Icon(Icons.more_vert),
+          IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed: () {},
+          ),
         ],
       ),
       body: Column(
@@ -134,11 +158,12 @@ class _ChatPageState extends State<ChatPage> {
               );
 
               messages.add(myMessage);
-
               _scrollDown();
+              typing = !typing;
+              setState(() {});
 
               await Future.delayed(
-                  Duration(seconds: Tools.getRandomInt(maxNumber: 3)), () {
+                  Duration(seconds: Tools.getRandomInt(maxNumber: 5)), () {
                 MessageModel otherMessage = MessageModel(
                   sender: james,
                   avatarUrl: james.avatarUrl,
@@ -148,10 +173,9 @@ class _ChatPageState extends State<ChatPage> {
                 );
 
                 messages.add(otherMessage);
-
-                msgIndex++;
-
                 _scrollDown();
+                msgIndex++;
+                typing = !typing;
 
                 setState(() {});
               });
