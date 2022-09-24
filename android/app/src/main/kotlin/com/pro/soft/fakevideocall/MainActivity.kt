@@ -1,4 +1,4 @@
-package com.pro.soft.fakevideocall
+package com.pro.soft.likenastyafakecall
 
 import io.flutter.embedding.android.FlutterActivity
 

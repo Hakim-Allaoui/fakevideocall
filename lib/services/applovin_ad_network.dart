@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:fakevideocall/services/app_open_ad_helper.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:applovin_max/applovin_max.dart';
@@ -77,6 +78,8 @@ class ApplovinAdNetwork {
       return;
     }
 
+    AppLifecycleReactor.pausedByInterstitial = true;
+
     Tools.waitingDialog(
         context: context,
         process: () {
@@ -112,10 +115,13 @@ class ApplovinAdNetwork {
                 return;
               },
               onAdDisplayedCallback: (ad) {},
-              onAdDisplayFailedCallback: (ad, error) {},
+              onAdDisplayFailedCallback: (ad, error) {
+                print("Applovind: onAdDisplayFailedCallback $error");
+              },
               onAdClickedCallback: (ad) {},
               onAdHiddenCallback: (ad) {
                 Navigator.pop(context);
+                AppLifecycleReactor.pausedByInterstitial = false;
                 onFinished();
                 return;
               },

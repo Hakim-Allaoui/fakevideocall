@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:fakevideocall/services/admob_ad_network.dart';
 import 'package:fakevideocall/services/applovin_ad_network.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,12 @@ import 'package:flutter/material.dart';
 class AdsHelper {
   // static late AdsModel ids;
   static late ApplovinAdNetwork applovin;
+  static late AdMobAdNetwork admob;
 
   static init() async {
+    admob = AdMobAdNetwork();
+    AdMobAdNetwork.initialize();
+
     switch (Tools.allData?.ads!.adNetwork!.toLowerCase()) {
       case "admob":
         break;
@@ -108,6 +113,7 @@ class AdsHelper {
       case "facebook":
         break;
       default: //"any"
+        onFinished();
         break;
     }
   }

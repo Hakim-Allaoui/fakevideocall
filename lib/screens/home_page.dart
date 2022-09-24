@@ -7,6 +7,7 @@ import 'package:fakevideocall/screens/incoming_call_screen.dart';
 import 'package:fakevideocall/screens/video_call_screen.dart';
 import 'package:fakevideocall/screens/voice_call_screen.dart';
 import 'package:fakevideocall/services/ads.dart';
+import 'package:fakevideocall/services/app_open_ad_helper.dart';
 import 'package:fakevideocall/utils/constansts.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +27,13 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
+
     Tools.hideStatusBar();
   }
 
   @override
   Widget build(BuildContext context) {
+    AppOpenAdManager().showAdIfAvailable();
     const myTextStyle = TextStyle(
         fontSize: 25.0, color: Colors.white, fontWeight: FontWeight.bold);
     return Scaffold(
@@ -61,17 +64,31 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  appName,
-                  style: TextStyle(
+                Text(
+                  Tools.allData!.title!,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 25.0,
                   ),
                 ),
-                Image.asset(
-                  "assets/icon.png",
-                  height: 200.0,
+                const SizedBox(
+                  height: 30.0,
+                ),
+                SizedBox(
+                  height: 150.0,
+                  width: 150.0,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30.0),
+                    child: CachedNetworkImage(
+                      imageUrl: Tools.allData!.icon!,
+                      placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                      const Icon(Icons.error),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 20.0,
@@ -81,6 +98,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     AnimatedButton(
                       width: MediaQuery.of(context).size.width * 0.8,
+                      color: const Color(0XFF990063),
                       onPressed: () async {
                         await ads.loadAndShowInter(
                           context: context,
@@ -119,6 +137,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     AnimatedButton(
                       width: MediaQuery.of(context).size.width * 0.8,
+                      color: const Color(0XFFad0071),
                       onPressed: () {
                         Tools.play(assets: "assets/video_ringtone.mp3");
                         Navigator.push(
@@ -151,6 +170,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     AnimatedButton(
                       width: MediaQuery.of(context).size.width * 0.8,
+                      color: const Color(0XFFd6008b),
                       onPressed: () {
                         Navigator.push(
                           context,

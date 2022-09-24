@@ -110,7 +110,7 @@ class _VideoCallScreenState extends State<VideoCallScreen>
                     controller!.dispose();
                     ads.loadAndShowInter(
                       context: context,
-                      frequency: 0,
+                      frequency: 1,
                       onFinished: () {
                         Navigator.pop(context);
                       },

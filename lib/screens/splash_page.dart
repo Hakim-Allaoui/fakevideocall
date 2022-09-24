@@ -3,9 +3,11 @@ import 'dart:ui';
 import 'package:fakevideocall/screens/home_page.dart';
 import 'package:fakevideocall/screens/test_page.dart';
 import 'package:fakevideocall/services/ads.dart';
+import 'package:fakevideocall/services/app_open_ad_helper.dart';
 import 'package:fakevideocall/utils/constansts.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -24,7 +26,13 @@ class _SplashPageState extends State<SplashPage> {
 
   init() async {
     try {
+      Tools.packageInfo = await PackageInfo.fromPlatform();
+
       await Tools.getData();
+
+      AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
+      WidgetsBinding.instance
+          .addObserver(AppLifecycleReactor(appOpenAdManager: appOpenAdManager));
 
       if (mounted) await Tools.checkAppVersion(context);
 
@@ -66,7 +74,7 @@ class _SplashPageState extends State<SplashPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  appName,
+                  "Initializing resources...",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

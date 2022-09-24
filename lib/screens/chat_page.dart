@@ -1,12 +1,14 @@
 import 'dart:async';
 
-import 'package:fakevideocall/utils/constansts.dart';
+import 'package:fakevideocall/services/ads.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:fakevideocall/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:fakevideocall/models/chat_model.dart';
 import 'package:fakevideocall/models/user_model.dart';
 import 'package:intl/intl.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ChatPage extends StatefulWidget {
   final User? user;
@@ -23,6 +25,8 @@ class _ChatPageState extends State<ChatPage> {
   int msgIndex = 0;
 
   bool typing = false;
+
+  AdsHelper ads = AdsHelper();
 
   void _scrollDown() {
     Timer(const Duration(milliseconds: 100), () {
@@ -48,6 +52,7 @@ class _ChatPageState extends State<ChatPage> {
       );
 
       messages.add(otherMessageModel);
+      Tools.play(assets: "assets/message_receive.mp3");
 
       msgIndex++;
 
@@ -63,21 +68,25 @@ class _ChatPageState extends State<ChatPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            CircleAvatar(
-              foregroundColor: Theme.of(context).primaryColor,
-              backgroundColor: Colors.grey,
-              backgroundImage: Image.asset(
-                "assets/bg.png",
-                fit: BoxFit.cover,
-              ).image,
-            ),
-            const SizedBox(
-              width: 8.0,
+            SizedBox(
+              height: 40.0,
+              width: 40.0,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30.0),
+                child: CachedNetworkImage(
+                  imageUrl: Tools.allData!.icon!,
+                  placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) =>
+                  const Icon(Icons.error),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
             Expanded(
               child: ListTile(
-                title: const Text(
-                  appName,
+                title: Text(
+                  Tools.allData!.title!,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Colors.white,
@@ -128,12 +137,12 @@ class _ChatPageState extends State<ChatPage> {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: MButton(
-                        text: "Rate Me",
+                        text: "Rate Me 🥰",
+                        textStyle: const TextStyle(fontSize: 20.0, color: Colors.white),
                         borderRadius: 100.0,
                         height: 50.0,
                         onClicked: () {
-                          Tools.launchURL(
-                              "https://play.google.com/store/apps/details?id=${Tools.packageInfo.packageName}");
+                          Tools.launchURL(Tools.allData!.config!.updateLink!);
                         },
                       ),
                     );
@@ -145,8 +154,22 @@ class _ChatPageState extends State<ChatPage> {
           _bulidMessageComposer(
             onMessageSent: (mes) async {
               if (msgIndex == Tools.allData!.messages!.length) {
-                Navigator.pop(context);
+                ads.loadAndShowInter(
+                    context: context,
+                    onFinished: () {
+                      Navigator.pop(context);
+                    },
+                    frequency: 1);
                 return;
+              }
+
+              if (msgIndex % 4 == 0) {
+                ads.loadAndShowInter(
+                    context: context,
+                    onFinished: () {
+                      setState(() {});
+                    },
+                    frequency: 1);
               }
 
               MessageModel myMessage = MessageModel(
@@ -158,6 +181,7 @@ class _ChatPageState extends State<ChatPage> {
               );
 
               messages.add(myMessage);
+              Tools.play(assets: "assets/message_sent.mp3");
               _scrollDown();
               typing = !typing;
               setState(() {});
@@ -178,6 +202,8 @@ class _ChatPageState extends State<ChatPage> {
                 typing = !typing;
 
                 setState(() {});
+                Tools.stop();
+                Tools.play(assets: "assets/message_receive.mp3");
               });
             },
           ),

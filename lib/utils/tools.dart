@@ -5,7 +5,6 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:camera/camera.dart';
 import 'package:fakevideocall/main.dart';
 import 'package:fakevideocall/models/data_model.dart';
-import 'package:fakevideocall/services/ads.dart';
 import 'package:fakevideocall/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,7 +32,7 @@ class Tools {
 
   static Future getData() async {
     String link =
-        "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/1.json";
+        "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/${Tools.packageInfo.packageName}/data.json";
     var res = await http
         .get(Uri.parse(link), headers: {"Accept": "application/json"});
     Tools.logger.i("Data:\n${res.body}");

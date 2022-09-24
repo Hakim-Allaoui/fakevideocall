@@ -1,7 +1,5 @@
 import 'package:camera/camera.dart';
-import 'package:fakevideocall/screens/home_page.dart';
 import 'package:fakevideocall/screens/splash_page.dart';
-import 'package:fakevideocall/utils/constansts.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:flutter/material.dart';
 
@@ -19,8 +17,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: appName,
-      theme: ThemeData(
+      title: "Fake Video Call", //TODO: AppName
+    theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: const SplashPage(),

@@ -1,10 +1,151 @@
+import 'dart:io';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 // import 'package:easy_ads_flutter/easy_ads_flutter.dart';
 // import 'package:easy_localization/easy_localization.dart';
 // import 'package:fake_it/utils/theme.dart';
 // import 'package:fake_it/utils/tools.dart';
 // import 'package:flutter/material.dart';
 
-class AdMob {
+class AdMobAdNetwork {
+  static String get bannerID {
+    if (Platform.isAndroid) {
+      return "ca-app-pub-3940256099942544/6300978111";
+    } else if (Platform.isIOS) {
+      return "ca-app-pub-9826383179102622/2702991942";
+    } else {
+      throw UnsupportedError("Unsupported platform");
+    }
+  }
+
+  static String get interstitialID {
+    if (Platform.isAndroid) {
+      return "ca-app-pub-3940256099942544/1033173712";
+    } else if (Platform.isIOS) {
+      return "ca-app-pub-9826383179102622/6454534694";
+    } else {
+      throw UnsupportedError("Unsupported platform");
+    }
+  }
+
+  static String get nativeID {
+    if (Platform.isAndroid) {
+      return "ca-app-pub-9826383179102622/7392970013";
+    } else if (Platform.isIOS) {
+      return "ca-app-pub-9826383179102622/7392970013";
+    } else {
+      throw UnsupportedError("Unsupported platform");
+    }
+  }
+
+  static String get interstitialVideoAdUnitId {
+    if (Platform.isAndroid) {
+      return "4a8eb21a858ed7b8";
+    } else if (Platform.isIOS) {
+      return "";
+    } else {
+      throw UnsupportedError("Unsupported platform");
+    }
+  }
+
+  InterstitialAd? _interstitialAd;
+  int num_of_attempt_load = 0;
+
+  int calledTimes = 0;
+
+  static bool isBannerLoaded = false;
+
+  static Future<InitializationStatus> initialize() async {
+    return MobileAds.instance.initialize();
+  }
+
+  static BannerAd getBannerAd() {
+    BannerAd bAd = BannerAd(
+        size: AdSize.banner,
+        adUnitId: bannerID,
+        listener: BannerAdListener(onAdClosed: (Ad ad) {
+          print("Ad Closed");
+        }, onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          ad.dispose();
+        }, onAdLoaded: (Ad ad) {
+          print('Ad Loaded');
+        }, onAdOpened: (Ad ad) {
+          print('Ad opened');
+        }),
+        request: const AdRequest());
+    return bAd;
+  }
+
+  static BannerAd getCustomBannerAd(BannerAdListener _listener) {
+    BannerAd bAd = BannerAd(
+        size: AdSize.banner,
+        adUnitId: bannerID,
+        listener: _listener,
+        request: const AdRequest());
+    return bAd;
+  }
+
+  // create interstitial ads
+  void createInterstitial() {
+    print("create interstitial called");
+
+    InterstitialAd.load(
+      adUnitId: interstitialID,
+      request: const AdRequest(),
+      adLoadCallback:
+          InterstitialAdLoadCallback(onAdLoaded: (InterstitialAd ad) {
+        print("Loaded interstitial");
+        _interstitialAd = ad;
+        num_of_attempt_load = 0;
+      }, onAdFailedToLoad: (LoadAdError error) {
+        num_of_attempt_load + 1;
+        _interstitialAd = null;
+        if (num_of_attempt_load <= 2) {
+          createInterstitial();
+        }
+      }),
+    );
+  }
+
+// show interstitial ads to user
+  void showInterstitial({int frequency = 1}) {
+    print("show interstitial called");
+    print("interstitial Div = ${calledTimes / frequency}");
+    print("interstitial Frequency = ${calledTimes % frequency}");
+
+    if (calledTimes % frequency != 0) {
+      createInterstitial();
+      calledTimes++;
+      return;
+    }
+
+    calledTimes++;
+
+    if (_interstitialAd == null) {
+      return;
+    }
+
+    _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (InterstitialAd ad) {
+        print("ad onAdshowedFullscreen interstitial");
+      },
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        print("ad Disposed interstitial");
+        ad.dispose();
+      },
+      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError aderror) {
+        print('$ad OnAdFailed $aderror interstitial');
+        ad.dispose();
+        createInterstitial();
+      },
+      onAdWillDismissFullScreenContent: (InterstitialAd ad) {
+        print('$ad onAdWillDismissFullScreenContent interstitial');
+      },
+    );
+    _interstitialAd!.show();
+    _interstitialAd = null;
+  }
+
   /*late AdManagerBannerAd _bannerAd;
   late AdManagerInterstitialAd _interstitialAd;
   late RewardedAd _rewardedAd;
@@ -12,7 +153,7 @@ class AdMob {
   static late IAdIdManager adIdManager;
 
   static init() {
-    *//*EasyAds.instance.initialize(
+    */ /*EasyAds.instance.initialize(
       adIdManager,
       enableLogger: true,
       unityTestMode: true,
@@ -23,7 +164,7 @@ class AdMob {
         testDeviceIds: ['17a0fe30-414c-456f-9ead-789b830e7fac'],
       ),
     );
-    *//*
+    */ /*
     MobileAds.instance.initialize().then((initializationStatus) {
       initializationStatus.adapterStatuses.forEach((key, value) {
         Tools.logger.i('Adapter status for $key: ${value.description}');

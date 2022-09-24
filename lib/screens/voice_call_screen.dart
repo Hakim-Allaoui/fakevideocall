@@ -71,16 +71,16 @@ class _VoiceCallScreenState extends State<VoiceCallScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 30.0),
                   child: Center(
                     child: Column(
-                      children: const [
+                      children: [
                         Text(
-                          appName,
-                          style: TextStyle(
+                          Tools.allData!.title!,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 25.0,
                           ),
                         ),
-                        Text(
+                        const Text(
                           "Coming call",
                           style: TextStyle(
                             color: Colors.white,
