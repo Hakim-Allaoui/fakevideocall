@@ -60,7 +60,7 @@ class _SplashPageState extends State<SplashPage> {
         children: [
           SizedBox(
             child: Image.asset(
-              "assets/bg.png",
+              "assets/bg.jpg",
               fit: BoxFit.cover,
             ),
           ),
@@ -72,25 +72,14 @@ class _SplashPageState extends State<SplashPage> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
+              children: const [
+                Text(
                   "Initializing resources...",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 25.0,
+                    fontSize: 15.0,
                   ),
-                ),
-                Image.asset(
-                  "assets/icon.png",
-                  height: 200.0,
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [Text("Loading...")],
                 ),
               ],
             ),

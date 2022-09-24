@@ -14,6 +14,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
 class Tools {
+  static String link =
+      "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/${Tools.packageInfo.packageName}/data.json";
   static final assetsAudioPlayer = AssetsAudioPlayer();
 
   static late PackageInfo packageInfo;
@@ -31,8 +33,27 @@ class Tools {
   static DataModel? allData;
 
   static Future getData() async {
+    var res = await http
+        .get(Uri.parse(link), headers: {"Accept": "application/json"});
+    Tools.logger.i("Data:\n${res.body}");
+    if (res.statusCode == 200) {
+      var data = json.decode(res.body);
+      Tools.logger.i(data);
+      allData = DataModel.fromJson(data);
+    } else {
+      link =
+          "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/dump_data.json";
+      await getData();
+
+      // throw Exception(res.statusCode);
+    }
+
+    return;
+  }
+
+  static Future getDumpData() async {
     String link =
-        "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/${Tools.packageInfo.packageName}/data.json";
+        "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/dump_data.json";
     var res = await http
         .get(Uri.parse(link), headers: {"Accept": "application/json"});
     Tools.logger.i("Data:\n${res.body}");

@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-
     Tools.hideStatusBar();
   }
 
@@ -43,7 +42,7 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             child: Tools.allData!.backgroundImg!.isEmpty
                 ? Image.asset(
-                    "assets/bg.png",
+                    "assets/bg.jpg",
                     fit: BoxFit.cover,
                   )
                 : CachedNetworkImage(
@@ -83,9 +82,9 @@ class _HomePageState extends State<HomePage> {
                     child: CachedNetworkImage(
                       imageUrl: Tools.allData!.icon!,
                       placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
+                          const Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) =>
-                      const Icon(Icons.error),
+                          const Icon(Icons.error),
                       fit: BoxFit.cover,
                     ),
                   ),

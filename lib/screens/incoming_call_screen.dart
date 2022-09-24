@@ -32,7 +32,7 @@ class _IncomingCallScreenState extends State<IncomingCallScreen> {
             SizedBox(
               child: Tools.allData!.backgroundImg!.isEmpty
                   ? Image.asset(
-                      "assets/bg.png",
+                      "assets/bg.jpg",
                       fit: BoxFit.cover,
                     )
                   : CachedNetworkImage(
@@ -76,10 +76,19 @@ class _IncomingCallScreenState extends State<IncomingCallScreen> {
                           )),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100.0),
-                        child: Image.asset(
-                          "assets/bg.png",
-                          fit: BoxFit.cover,
-                        ),
+                        child: Tools.allData!.icon!.isEmpty
+                            ? Image.asset(
+                                "assets/bg.jpg",
+                                fit: BoxFit.cover,
+                              )
+                            : CachedNetworkImage(
+                                imageUrl: Tools.allData!.icon!,
+                                placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                   ),
