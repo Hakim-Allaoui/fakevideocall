@@ -1,29 +1,29 @@
 {
-    "title": "Title",
-    "icon": "https://usercontent1.hubstatic.com/8037694.jpg",
-    "backgroundImg": "https://usercontent1.hubstatic.com/8037694.jpg",
+    "title": "Kids Diana Fake Call",
+    "icon": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.pro.soft.kids_diana_fakecall/icon.png",
+    "backgroundImg": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.pro.soft.kids_diana_fakecall/background.jpg",
     "messages": [
-        "Hi!",
+        "Hi! 👋",
         "What's your name?",
-        "Nice to meet you, I am Diana and Roma, do you know me?",
+        "Nice to meet you 🥰, I am Kids Diana, do you know me?",
         "How old are you?",
         "Where do you live?",
         "Good, How do you find your city?",
-        "You will advise me to live in your city?",
+        "You will advise me to live in your city 🤔?",
         "Okay! There are many parks for playing?",
-        "That sounds nice! You prefer playing with friends or siblings?",
+        "That sounds nice 😍! You prefer playing with friends or siblings?",
         "Ah! Why?",
         "Okay! I will be your playing friend then.",
-        "Do you Like this Application?..",
-        "Plz rate this application, and live a comment ?"
+        "Do you Like this Application 🤗🤗🤗?..",
+        "Plz rate this application ⭐⭐⭐⭐⭐, and leave a comment ✍️?"
     ],
     "backgroundColor": "424242",
     "config": {
         "currentAppVersion": "1.0.0",
         "forceUpdate": false,
         "title": "update available",
-        "body": "update_message var",
-        "updateLink": "https://play.google.com/store/apps/details?id=com.happyplay.tips.fakevideocall",
+        "body": "Version var available 🎉, download now and get latest features.",
+        "updateLink": "https://play.google.com/store/apps/details?id=com.pro.soft.kids_diana_fakecall",
         "approved": true
     },
     "ads": {
@@ -31,11 +31,11 @@
         "ids": {
             "appId": "ca-app-pub-3940256099942544~3347511713",
             "banners": [
-                "/6499/example/banner",
+                "32bfc20b7ebee2c3",
                 "ca-app-pub-5345037485983429/5704363995"
             ],
             "inters": [
-                "/6499/example/interstitial",
+                "59af0f55eaa90e09",
                 "ca-app-pub-5345037485983429/9466433461"
             ],
             "rewards": [
@@ -49,6 +49,10 @@
             "mRecs": [
                 "/6499/example/rewarded",
                 "ca-app-pub-5345037485983429/4729397518"
+            ],
+            "appOpen": [
+                "ca-app-pub-5320310844464753/6936276268",
+                "ca-app-pub-5320310844464753/6936276268"
             ]
         }
     }

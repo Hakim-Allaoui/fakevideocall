@@ -108,14 +108,17 @@ class Ids {
   List<String>? rewards;
   List<String>? natives;
   List<String>? mRecs;
+  List<String>? appOpen;
 
-  Ids(
-      {this.appId,
-      this.banners,
-      this.inters,
-      this.rewards,
-      this.natives,
-      this.mRecs});
+  Ids({
+    this.appId,
+    this.banners,
+    this.inters,
+    this.rewards,
+    this.natives,
+    this.mRecs,
+    this.appOpen,
+  });
 
   Ids.fromJson(Map<String, dynamic> json) {
     appId = json['appId'];
@@ -124,6 +127,7 @@ class Ids {
     rewards = json['rewards'].cast<String>();
     natives = json['natives'].cast<String>();
     mRecs = json['mRecs'].cast<String>();
+    appOpen = json['appOpen'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
@@ -134,6 +138,7 @@ class Ids {
     data['rewards'] = rewards;
     data['natives'] = natives;
     data['mRecs'] = mRecs;
+    data['appOpen'] = appOpen;
     return data;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:fakevideocall/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'dart:io' show Platform;
@@ -10,11 +11,9 @@ class AppOpenAdManager {
   AppOpenAd? _appOpenAd;
   bool _isShowingAd = false;
 
-  String adUnitId = 'ca-app-pub-5320310844464753/6960720205';
-
   void loadAd() {
     AppOpenAd.load(
-      adUnitId: adUnitId,
+      adUnitId: Tools.allData!.ads!.ids!.appOpen![0],
       orientation: AppOpenAd.orientationPortrait,
       request: AdRequest(),
       adLoadCallback: AppOpenAdLoadCallback(

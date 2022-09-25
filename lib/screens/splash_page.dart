@@ -31,6 +31,7 @@ class _SplashPageState extends State<SplashPage> {
       await Tools.getData();
 
       AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
+
       WidgetsBinding.instance
           .addObserver(AppLifecycleReactor(appOpenAdManager: appOpenAdManager));
 
