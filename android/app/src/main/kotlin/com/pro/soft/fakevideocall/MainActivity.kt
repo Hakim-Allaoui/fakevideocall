@@ -1,4 +1,4 @@
-package com.pro.soft.kids_diana_fakecall
+package com.pro.soft.d_billions_fakecall
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Fake Video Call", //TODO: AppName
-    theme: ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: const SplashPage(),
