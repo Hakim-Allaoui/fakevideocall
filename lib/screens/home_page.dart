@@ -8,7 +8,6 @@ import 'package:fakevideocall/screens/video_call_screen.dart';
 import 'package:fakevideocall/screens/voice_call_screen.dart';
 import 'package:fakevideocall/services/ads.dart';
 import 'package:fakevideocall/services/app_open_ad_helper.dart';
-import 'package:fakevideocall/utils/constansts.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
