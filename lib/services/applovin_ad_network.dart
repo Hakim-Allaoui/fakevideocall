@@ -80,7 +80,7 @@ class ApplovinAdNetwork {
 
     AppLifecycleReactor.pausedByInterstitial = true;
 
-    Future.delayed(const Duration(seconds: 8), () {
+    Future.delayed(const Duration(seconds: 30), () {
       Navigator.pop(context);
       onFinished();
       Tools.logger.i("TIMEOUT");
