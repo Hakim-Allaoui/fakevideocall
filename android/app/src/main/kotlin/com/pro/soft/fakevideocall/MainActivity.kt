@@ -1,4 +1,4 @@
-package com.pro.soft.vlad_and_niki_fakecall
+package com.pro.soft.rainbow_friends_fakecall
 
 import io.flutter.embedding.android.FlutterActivity
 

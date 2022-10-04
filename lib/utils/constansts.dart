@@ -1,1 +1,1 @@
-const int numberOfVideos = 2;
+const int numberOfVideos = 1;

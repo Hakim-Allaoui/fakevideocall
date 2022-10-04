@@ -1,7 +1,7 @@
 {
     "title": "Kids Diana Fake Call",
-    "icon": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.pro.soft.vlad_and_niki_fakecall/icon.png",
-    "backgroundImg": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.pro.soft.vlad_and_niki_fakecall/background.jpg",
+    "icon": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.pro.soft.rainbow_friends_fakecall/icon.png",
+    "backgroundImg": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.pro.soft.rainbow_friends_fakecall/background.jpg",
     "messages": [
         "Hi! 👋",
         "What's your name?",
@@ -23,7 +23,7 @@
         "forceUpdate": false,
         "title": "update available",
         "body": "Version var available 🎉, download now and get latest features.",
-        "updateLink": "https://play.google.com/store/apps/details?id=com.pro.soft.vlad_and_niki_fakecall",
+        "updateLink": "https://play.google.com/store/apps/details?id=com.pro.soft.rainbow_friends_fakecall",
         "approved": true
     },
     "ads": {
