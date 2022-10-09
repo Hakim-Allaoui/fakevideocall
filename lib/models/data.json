@@ -1,11 +1,11 @@
 {
     "title": "Kids Diana Fake Call",
-    "icon": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.pro.soft.rainbow_friends_fakecall/icon.png",
-    "backgroundImg": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.pro.soft.rainbow_friends_fakecall/background.jpg",
+    "icon": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.pro.soft.jetha_lal_fake_video_call/icon.png",
+    "backgroundImg": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.pro.soft.jetha_lal_fake_video_call/bg.png",
     "messages": [
         "Hi! 👋",
         "What's your name?",
-        "Nice to meet you 🥰, I am Kids Diana, do you know me?",
+        "Nice to meet you 🥰, I am jetha lal, do you know me?",
         "How old are you?",
         "Where do you live?",
         "Good, How do you find your city?",
@@ -23,7 +23,7 @@
         "forceUpdate": false,
         "title": "update available",
         "body": "Version var available 🎉, download now and get latest features.",
-        "updateLink": "https://play.google.com/store/apps/details?id=com.pro.soft.rainbow_friends_fakecall",
+        "updateLink": "https://play.google.com/store/apps/details?id=com.pro.soft.jetha_lal_fake_video_call",
         "approved": true
     },
     "ads": {
