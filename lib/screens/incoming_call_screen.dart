@@ -30,13 +30,13 @@ class _IncomingCallScreenState extends State<IncomingCallScreen> {
           fit: StackFit.expand,
           children: [
             SizedBox(
-              child: Tools.allData!.backgroundImg!.isEmpty
+              child: Tools.allData.backgroundImg.isEmpty
                   ? Image.asset(
                       "assets/bg.jpg",
                       fit: BoxFit.cover,
                     )
                   : CachedNetworkImage(
-                      imageUrl: Tools.allData!.backgroundImg!,
+                      imageUrl: Tools.allData.backgroundImg,
                       placeholder: (context, url) =>
                           const Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) =>
@@ -76,13 +76,13 @@ class _IncomingCallScreenState extends State<IncomingCallScreen> {
                           )),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100.0),
-                        child: Tools.allData!.icon!.isEmpty
+                        child: Tools.allData.icon.isEmpty
                             ? Image.asset(
                                 "assets/bg.jpg",
                                 fit: BoxFit.cover,
                               )
                             : CachedNetworkImage(
-                                imageUrl: Tools.allData!.icon!,
+                                imageUrl: Tools.allData.icon,
                                 placeholder: (context, url) => const Center(
                                     child: CircularProgressIndicator()),
                                 errorWidget: (context, url, error) =>

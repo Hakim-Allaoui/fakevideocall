@@ -1,29 +1,26 @@
 class DataModel {
-  String? title;
-  String? icon;
-  String? backgroundImg;
-  List<String>? messages;
-  String? backgroundColor;
-  Config? config;
-  Ads? ads;
+  late String title;
+  late String icon;
+  late String backgroundImg;
+  late List<String> messages;
+  late Config config;
+  late Ads ads;
 
   DataModel(
-      {this.title,
-      this.icon,
-      this.backgroundImg,
-      this.messages,
-      this.backgroundColor,
-      this.config,
-      this.ads});
+      {required this.title,
+      required this.icon,
+      required this.backgroundImg,
+      required this.messages,
+      required this.config,
+      required this.ads});
 
   DataModel.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     icon = json['icon'];
     backgroundImg = json['backgroundImg'];
     messages = json['messages'].cast<String>();
-    backgroundColor = json['backgroundColor'];
-    config = json['config'] != null ? Config.fromJson(json['config']) : null;
-    ads = json['ads'] != null ? Ads.fromJson(json['ads']) : null;
+    config = Config.fromJson(json['config']);
+    ads = Ads.fromJson(json['ads']);
   }
 
   Map<String, dynamic> toJson() {
@@ -32,32 +29,28 @@ class DataModel {
     data['icon'] = icon;
     data['backgroundImg'] = backgroundImg;
     data['messages'] = messages;
-    data['backgroundColor'] = backgroundColor;
-    if (config != null) {
-      data['config'] = config!.toJson();
-    }
-    if (ads != null) {
-      data['ads'] = ads!.toJson();
-    }
+    data['config'] = config.toJson();
+    data['ads'] = ads.toJson();
+
     return data;
   }
 }
 
 class Config {
-  String? currentAppVersion;
-  bool? forceUpdate;
-  String? title;
-  String? body;
-  String? updateLink;
-  bool? approved;
+  late String currentAppVersion;
+  late bool forceUpdate;
+  late String title;
+  late String body;
+  late String updateLink;
+  late bool approved;
 
   Config(
-      {this.currentAppVersion,
-      this.forceUpdate,
-      this.title,
-      this.body,
-      this.updateLink,
-      this.approved});
+      {required this.currentAppVersion,
+      required this.forceUpdate,
+      required this.title,
+      required this.body,
+      required this.updateLink,
+      required this.approved});
 
   Config.fromJson(Map<String, dynamic> json) {
     currentAppVersion = json['currentAppVersion'];
@@ -81,63 +74,60 @@ class Config {
 }
 
 class Ads {
-  String? adNetwork;
-  Ids? ids;
+  late String adNetwork;
+  late Ids ids;
+  late int frequency;
 
-  Ads({this.adNetwork, this.ids});
+  Ads({required this.adNetwork, required this.ids, this.frequency = 2});
 
   Ads.fromJson(Map<String, dynamic> json) {
     adNetwork = json['adNetwork'];
-    ids = json['ids'] != null ? Ids.fromJson(json['ids']) : null;
+    ids = Ids.fromJson(json['ids']);
+    frequency = json['frequency'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['adNetwork'] = adNetwork;
-    if (ids != null) {
-      data['ids'] = ids!.toJson();
-    }
+    data['ids'] = ids.toJson();
+    data['frequency'] = frequency;
     return data;
   }
 }
 
 class Ids {
-  String? appId;
-  List<String>? banners;
-  List<String>? inters;
-  List<String>? rewards;
-  List<String>? natives;
-  List<String>? mRecs;
-  List<String>? appOpen;
+  late String appId;
+  late String banner;
+  late String inter;
+  late String reward;
+  late String native;
+  late String appOpen;
 
   Ids({
-    this.appId,
-    this.banners,
-    this.inters,
-    this.rewards,
-    this.natives,
-    this.mRecs,
-    this.appOpen,
+    required this.appId,
+    required this.banner,
+    required this.inter,
+    required this.reward,
+    required this.native,
+    required this.appOpen,
   });
 
   Ids.fromJson(Map<String, dynamic> json) {
     appId = json['appId'];
-    banners = json['banners'].cast<String>();
-    inters = json['inters'].cast<String>();
-    rewards = json['rewards'].cast<String>();
-    natives = json['natives'].cast<String>();
-    mRecs = json['mRecs'].cast<String>();
-    appOpen = json['appOpen'].cast<String>();
+    banner = json['banner'];
+    inter = json['inter'];
+    reward = json['reward'];
+    native = json['native'];
+    appOpen = json['appOpen'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['appId'] = appId;
-    data['banners'] = banners;
-    data['inters'] = inters;
-    data['rewards'] = rewards;
-    data['natives'] = natives;
-    data['mRecs'] = mRecs;
+    data['banner'] = banner;
+    data['inter'] = inter;
+    data['reward'] = reward;
+    data['native'] = native;
     data['appOpen'] = appOpen;
     return data;
   }

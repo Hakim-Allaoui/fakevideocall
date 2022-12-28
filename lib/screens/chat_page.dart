@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fakevideocall/services/ads.dart';
+import 'package:fakevideocall/services/ads_helper.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:fakevideocall/widgets.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +46,7 @@ class _ChatPageState extends State<ChatPage> {
       MessageModel otherMessageModel = MessageModel(
         sender: james,
         avatarUrl: james.avatarUrl,
-        text: Tools.allData!.messages![msgIndex],
+        text: Tools.allData.messages[msgIndex],
         time: DateTime.now(),
         unread: true,
       );
@@ -63,7 +63,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffece5dd),
+      backgroundColor: const Color(0xFFF0E9E9),
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -74,11 +74,10 @@ class _ChatPageState extends State<ChatPage> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30.0),
                 child: CachedNetworkImage(
-                  imageUrl: Tools.allData!.icon!,
+                  imageUrl: Tools.allData.icon,
                   placeholder: (context, url) =>
-                  const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) =>
-                  const Icon(Icons.error),
+                      const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -86,7 +85,7 @@ class _ChatPageState extends State<ChatPage> {
             Expanded(
               child: ListTile(
                 title: Text(
-                  Tools.allData!.title!,
+                  Tools.allData.title,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Colors.white,
@@ -129,7 +128,7 @@ class _ChatPageState extends State<ChatPage> {
                 reverse: false,
                 shrinkWrap: true,
                 itemCount:
-                    messages.length < Tools.allData!.messages!.length * 2 - 1
+                    messages.length < Tools.allData.messages.length * 2 - 1
                         ? messages.length
                         : messages.length + 1,
                 itemBuilder: (context, i) {
@@ -138,11 +137,12 @@ class _ChatPageState extends State<ChatPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: MButton(
                         text: "Rate Me 🥰",
-                        textStyle: const TextStyle(fontSize: 20.0, color: Colors.white),
+                        textStyle: const TextStyle(
+                            fontSize: 20.0, color: Colors.white),
                         borderRadius: 100.0,
                         height: 50.0,
                         onClicked: () {
-                          Tools.launchURL(Tools.allData!.config!.updateLink!);
+                          Tools.launchURL(Tools.allData.config.updateLink);
                         },
                       ),
                     );
@@ -153,23 +153,23 @@ class _ChatPageState extends State<ChatPage> {
           ),
           _bulidMessageComposer(
             onMessageSent: (mes) async {
-              if (msgIndex == Tools.allData!.messages!.length) {
+              if (msgIndex == Tools.allData.messages.length) {
                 ads.loadAndShowInter(
-                    context: context,
-                    onFinished: () {
-                      Navigator.pop(context);
-                    },
-                    frequency: 1);
+                  context: context,
+                  onFinished: () {
+                    Navigator.pop(context);
+                  },
+                );
                 return;
               }
 
               if (msgIndex % 4 == 0) {
                 ads.loadAndShowInter(
-                    context: context,
-                    onFinished: () {
-                      setState(() {});
-                    },
-                    frequency: 1);
+                  context: context,
+                  onFinished: () {
+                    setState(() {});
+                  },
+                );
               }
 
               MessageModel myMessage = MessageModel(
@@ -191,7 +191,7 @@ class _ChatPageState extends State<ChatPage> {
                 MessageModel otherMessage = MessageModel(
                   sender: james,
                   avatarUrl: james.avatarUrl,
-                  text: Tools.allData!.messages![msgIndex],
+                  text: Tools.allData.messages[msgIndex],
                   time: DateTime.now(),
                   unread: true,
                 );

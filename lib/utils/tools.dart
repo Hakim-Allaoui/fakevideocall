@@ -5,6 +5,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:camera/camera.dart';
 import 'package:fakevideocall/main.dart';
 import 'package:fakevideocall/models/data_model.dart';
+import 'package:fakevideocall/services/admob_ad_network.dart';
 import 'package:fakevideocall/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,13 +16,15 @@ import 'package:http/http.dart' as http;
 
 class Tools {
   static String link =
-      "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/${Tools.packageInfo.packageName}/data.json";
+      "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/dump_data.json";
   static final assetsAudioPlayer = AssetsAudioPlayer();
 
   static late PackageInfo packageInfo;
 
   static initAppSettings() async {
     WidgetsFlutterBinding.ensureInitialized();
+
+    AdmobHelper.init();
 
     myCameras = await availableCameras();
 
@@ -30,7 +33,7 @@ class Tools {
     Tools.hideStatusBar();
   }
 
-  static DataModel? allData;
+  static late DataModel allData;
 
   static Future getData() async {
     var res = await http
@@ -70,7 +73,7 @@ class Tools {
 
   static checkAppVersion(BuildContext context) async {
     if (Tools.allData != null) {
-      String newVersion = Tools.allData!.config!.currentAppVersion!;
+      String newVersion = Tools.allData.config.currentAppVersion;
 
       double currentVersion =
           double.parse(newVersion.trim().replaceAll(".", ""));
@@ -83,23 +86,22 @@ class Tools {
       if (installedVersion < currentVersion) {
         await showDialog(
           context: context,
-          barrierDismissible: !Tools.allData!.config!.forceUpdate!,
+          barrierDismissible: !Tools.allData.config.forceUpdate,
           builder: (context) => AlertDialog(
             title: Text(
-              Tools.allData!.config!.title!,
+              Tools.allData.config.title,
             ),
             content: WillPopScope(
-              onWillPop: () =>
-                  Future.value(!Tools.allData!.config!.forceUpdate!),
+              onWillPop: () => Future.value(!Tools.allData.config.forceUpdate),
               child: Text(
-                "${Tools.allData!.config!.body!.split("var").first} $newVersion ${Tools.allData!.config!.body!.split("var").last}",
+                "${Tools.allData.config.body.split("var").first} $newVersion ${Tools.allData.config.body.split("var").last}",
               ),
             ),
             actions: [
               Row(
                 children: [
                   Expanded(
-                    child: Tools.allData!.config!.forceUpdate!
+                    child: Tools.allData.config.forceUpdate
                         ? MButton(
                             text: 'exit',
                             bgColor: Colors.transparent,
@@ -125,10 +127,10 @@ class Tools {
                     child: MButton(
                       text: 'update',
                       onClicked: () async {
-                        var url = Tools.allData!.config!.updateLink;
+                        var url = Tools.allData.config.updateLink;
 
-                        await Tools.launchURL(url!);
-                        if (!Tools.allData!.config!.forceUpdate!) {
+                        await Tools.launchURL(url);
+                        if (!Tools.allData.config.forceUpdate) {
                           Navigator.of(context).pop();
                         }
                       },

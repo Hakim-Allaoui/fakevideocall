@@ -6,7 +6,7 @@ import 'package:fakevideocall/screens/chat_page.dart';
 import 'package:fakevideocall/screens/incoming_call_screen.dart';
 import 'package:fakevideocall/screens/video_call_screen.dart';
 import 'package:fakevideocall/screens/voice_call_screen.dart';
-import 'package:fakevideocall/services/ads.dart';
+import 'package:fakevideocall/services/ads_helper.dart';
 import 'package:fakevideocall/services/app_open_ad_helper.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    AppOpenAdManager().showAdIfAvailable();
     const myTextStyle = TextStyle(
         fontSize: 25.0, color: Colors.white, fontWeight: FontWeight.bold);
     return Scaffold(
@@ -39,13 +38,13 @@ class _HomePageState extends State<HomePage> {
         fit: StackFit.expand,
         children: [
           SizedBox(
-            child: Tools.allData!.backgroundImg!.isEmpty
+            child: Tools.allData.backgroundImg.isEmpty
                 ? Image.asset(
                     "assets/bg.jpg",
                     fit: BoxFit.cover,
                   )
                 : CachedNetworkImage(
-                    imageUrl: Tools.allData!.backgroundImg!,
+                    imageUrl: Tools.allData.backgroundImg,
                     placeholder: (context, url) =>
                         const Center(child: CircularProgressIndicator()),
                     errorWidget: (context, url, error) =>
@@ -63,7 +62,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  Tools.allData!.title!,
+                  Tools.allData.title,
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -79,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(30.0),
                     child: CachedNetworkImage(
-                      imageUrl: Tools.allData!.icon!,
+                      imageUrl: Tools.allData.icon,
                       placeholder: (context, url) =>
                           const Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) =>
@@ -100,7 +99,6 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () async {
                         await ads.loadAndShowInter(
                           context: context,
-                          frequency: 3,
                           onFinished: () {
                             Tools.play();
                             Navigator.push(
@@ -136,15 +134,20 @@ class _HomePageState extends State<HomePage> {
                     AnimatedButton(
                       width: MediaQuery.of(context).size.width * 0.8,
                       color: const Color(0XFFad0071),
-                      onPressed: () {
-                        Tools.play(assets: "assets/video_ringtone.mp3");
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (builder) => const IncomingCallScreen(
-                              nextScreen: VideoCallScreen(),
-                            ),
-                          ),
+                      onPressed: () async {
+                        await ads.loadAndShowInter(
+                          context: context,
+                          onFinished: () {
+                            Tools.play(assets: "assets/video_ringtone.mp3");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (builder) => const IncomingCallScreen(
+                                  nextScreen: VideoCallScreen(),
+                                ),
+                              ),
+                            );
+                          },
                         );
                       },
                       child: Row(

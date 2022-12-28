@@ -1,6 +1,6 @@
 import 'package:animated_button/animated_button.dart';
 import 'package:camera/camera.dart';
-import 'package:fakevideocall/services/ads.dart';
+import 'package:fakevideocall/services/ads_helper.dart';
 import 'package:fakevideocall/utils/constansts.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:flutter/material.dart';
@@ -110,7 +110,6 @@ class _VideoCallScreenState extends State<VideoCallScreen>
                     controller!.dispose();
                     ads.loadAndShowInter(
                       context: context,
-                      frequency: 1,
                       onFinished: () {
                         Navigator.pop(context);
                       },

@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:fakevideocall/screens/home_page.dart';
 import 'package:fakevideocall/screens/test_page.dart';
-import 'package:fakevideocall/services/ads.dart';
+import 'package:fakevideocall/services/ads_helper.dart';
 import 'package:fakevideocall/services/app_open_ad_helper.dart';
 import 'package:fakevideocall/utils/constansts.dart';
 import 'package:fakevideocall/utils/tools.dart';
@@ -30,14 +30,15 @@ class _SplashPageState extends State<SplashPage> {
 
     await Tools.getData();
 
-    AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
+    await AdsHelper.init();
+
+    AppOpenAdManager appOpenAdManager = AppOpenAdManager();
+    await appOpenAdManager.loadAd();
 
     WidgetsBinding.instance
         .addObserver(AppLifecycleReactor(appOpenAdManager: appOpenAdManager));
 
     if (mounted) await Tools.checkAppVersion(context);
-
-    AdsHelper.init();
 
     if (mounted) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) {

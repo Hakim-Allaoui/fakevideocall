@@ -8,8 +8,7 @@ import 'package:applovin_max/applovin_max.dart';
 class ApplovinAdNetwork {
   bool isRewardedVideoAvailable = false;
   bool isInterstitialVideoAvailable = false;
-  static String SDK_KEY_HERE =
-      "QO91l1_TOsERBEiVdyJ1_v6565RlGQWzRisC9X6f4R7ycMd9S-piVBfREtbtmUp8IDf8a3H_O-fk-rFy9nk0JH";
+  static String SDK_KEY_HERE = "";
   static var _interstitialRetryAttempt = 0;
   static var _rewardedAdRetryAttempt = 0;
 
