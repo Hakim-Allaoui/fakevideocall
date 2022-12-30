@@ -1,7 +1,8 @@
+import 'package:fakevideocall/services/app_open_ad_helper.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:fakevideocall/services/app_open_ad_helper.dart';
+
 
 class AdmobHelper {
   static InterstitialAd? _interstitialAd;
@@ -148,31 +149,31 @@ class AdmobHelper {
 
                 _interstitialAd!.fullScreenContentCallback =
                     FullScreenContentCallback(
-                  onAdShowedFullScreenContent: (InterstitialAd ad) {
-                    Tools.logger.i("adss onAdShowedFullscreen interstitial");
-                  },
-                  onAdDismissedFullScreenContent: (InterstitialAd ad) {
-                    AppLifecycleReactor.pausedByInterstitial = true;
+                      onAdShowedFullScreenContent: (InterstitialAd ad) {
+                        Tools.logger.i("adss onAdShowedFullscreen interstitial");
+                      },
+                      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+                        AppLifecycleReactor.pausedByInterstitial = true;
 
-                    Tools.logger.i("adss Disposed interstitial");
-                    ad.dispose();
-                    loadInter(id);
+                        Tools.logger.i("adss Disposed interstitial");
+                        ad.dispose();
+                        loadInter(id);
 
-                    ok = true;
-                    Navigator.pop(context);
-                    onFinished();
-                    return;
-                  },
-                  onAdFailedToShowFullScreenContent:
-                      (InterstitialAd ad, AdError adError) {
-                    Tools.logger.e('adss $ad OnAdFailed $adError interstitial');
-                    ad.dispose();
-                  },
-                  onAdWillDismissFullScreenContent: (InterstitialAd ad) {
-                    Tools.logger.e(
-                        'adss $ad onAdWillDismissFullScreenContent interstitial');
-                  },
-                );
+                        ok = true;
+                        Navigator.pop(context);
+                        onFinished();
+                        return;
+                      },
+                      onAdFailedToShowFullScreenContent:
+                          (InterstitialAd ad, AdError adError) {
+                        Tools.logger.e('adss $ad OnAdFailed $adError interstitial');
+                        ad.dispose();
+                      },
+                      onAdWillDismissFullScreenContent: (InterstitialAd ad) {
+                        Tools.logger.e(
+                            'adss $ad onAdWillDismissFullScreenContent interstitial');
+                      },
+                    );
 
                 _interstitialAd!.show();
                 _interstitialAd = null;

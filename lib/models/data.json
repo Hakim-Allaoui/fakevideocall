@@ -1,7 +1,7 @@
 {
     "title": "Kids Diana Fake Call",
-    "icon": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.pro.soft.jetha_lal_fake_video_call/icon.png",
-    "backgroundImg": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.pro.soft.jetha_lal_fake_video_call/bg.png",
+    "icon": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.christmas.gift.new_year_fake_call/icon.png",
+    "backgroundImg": "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/com.christmas.gift.new_year_fake_call/bg.png",
     "messages": [
         "Hi! 👋",
         "What's your name?",
@@ -23,7 +23,7 @@
         "forceUpdate": false,
         "title": "update available",
         "body": "Version var available 🎉, download now and get latest features.",
-        "updateLink": "https://play.google.com/store/apps/details?id=com.pro.soft.jetha_lal_fake_video_call",
+        "updateLink": "https://play.google.com/store/apps/details?id=com.christmas.gift.new_year_fake_call",
         "approved": true
     },
     "ads": {

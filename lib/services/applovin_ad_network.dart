@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:fakevideocall/services/app_open_ad_helper.dart';
 import 'package:fakevideocall/utils/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:applovin_max/applovin_max.dart';
@@ -8,12 +7,15 @@ import 'package:applovin_max/applovin_max.dart';
 class ApplovinAdNetwork {
   bool isRewardedVideoAvailable = false;
   bool isInterstitialVideoAvailable = false;
-  static String SDK_KEY_HERE = "";
+  static const String SDK_KEY =
+      "QO91l1_TOsERBEiVdyJ1_v6565RlGQWzRisC9X6f4R7ycMd9S-piVBfREtbtmUp8IDf8a3H_O-fk-rFy9nk0JH";
   static var _interstitialRetryAttempt = 0;
   static var _rewardedAdRetryAttempt = 0;
 
-  static init() async {
-    Map? sdkConfiguration = await AppLovinMAX.initialize(SDK_KEY_HERE);
+  static init({String sdkKey = SDK_KEY}) async {
+    if (sdkKey.isEmpty) sdkKey = SDK_KEY;
+
+    Map? sdkConfiguration = await AppLovinMAX.initialize(sdkKey);
     AppLovinMAX.setTestDeviceAdvertisingIds(
         ["792a89f5-c67c-4eaf-9a77-e5bfff0844b3"]);
 
@@ -70,14 +72,12 @@ class ApplovinAdNetwork {
     required VoidCallback onFinished,
     int? frequency,
   }) async {
-    int num = Tools.getRandomInt(maxNumber: frequency ?? 0);
+    int num = Tools.getRandomIntInRange(max: frequency ?? 2);
     Tools.logger.i("frequency result: $num");
     if (num != 0) {
       onFinished();
       return;
     }
-
-    AppLifecycleReactor.pausedByInterstitial = true;
 
     Future.delayed(const Duration(seconds: 30), () {
       Navigator.pop(context);
@@ -122,12 +122,11 @@ class ApplovinAdNetwork {
               },
               onAdDisplayedCallback: (ad) {},
               onAdDisplayFailedCallback: (ad, error) {
-                print("Applovind: onAdDisplayFailedCallback $error");
+                Tools.logger.e("Applovin: onAdDisplayFailedCallback $error");
               },
               onAdClickedCallback: (ad) {},
               onAdHiddenCallback: (ad) {
                 Navigator.pop(context);
-                AppLifecycleReactor.pausedByInterstitial = false;
                 onFinished();
                 return;
               },

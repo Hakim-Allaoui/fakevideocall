@@ -54,6 +54,12 @@ class Tools {
     return;
   }
 
+  static int getRandomIntInRange({int min = 1, int max = 10}) {
+    Random rnd = Random();
+    int num = min + rnd.nextInt(max - min);
+    return num;
+  }
+
   static Future getDumpData() async {
     String link =
         "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/dump_data.json";

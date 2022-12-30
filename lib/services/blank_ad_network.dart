@@ -1,16 +1,8 @@
-// import 'package:fakevideocall/utils/tools.dart';
-// import 'package:flutter/material.dart';
-// import 'package:unity_ads_mediation/unity_ads_mediation.dart';
+import 'package:fakevideocall/utils/tools.dart';
+import 'package:flutter/material.dart';
 
-class UnityAdNetwork {
-  /*static init(String gameId) {
-    UnityAdsMediation.initialize(
-      gameId: gameId,
-      listener: (initializationState, result) {
-        Tools.logger.i('UnityAdsMediation : $result');
-      },
-    );
-  }
+class BlankAdNetwork {
+  static init() {}
 
   loadInter() {}
 
@@ -40,5 +32,5 @@ class UnityAdNetwork {
     );
   }
 
-  static showAdmobConsent() async {}*/
+  static showAdmobConsent() async {}
 }
