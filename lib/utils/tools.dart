@@ -16,7 +16,7 @@ import 'package:http/http.dart' as http;
 
 class Tools {
   static String link =
-      "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/dump_data.json";
+      "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/choochoo/chocho.json";
   static final assetsAudioPlayer = AssetsAudioPlayer();
 
   static late PackageInfo packageInfo;
@@ -58,23 +58,6 @@ class Tools {
     Random rnd = Random();
     int num = min + rnd.nextInt(max - min);
     return num;
-  }
-
-  static Future getDumpData() async {
-    String link =
-        "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/dump_data.json";
-    var res = await http
-        .get(Uri.parse(link), headers: {"Accept": "application/json"});
-    Tools.logger.i("Data:\n${res.body}");
-    if (res.statusCode == 200) {
-      var data = json.decode(res.body);
-      Tools.logger.i(data);
-      allData = DataModel.fromJson(data);
-    } else {
-      throw Exception(res.statusCode);
-    }
-
-    return;
   }
 
   static checkAppVersion(BuildContext context) async {

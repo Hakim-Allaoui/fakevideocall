@@ -25,32 +25,30 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   init() async {
-    // try {
-    Tools.packageInfo = await PackageInfo.fromPlatform();
+    try {
+      Tools.packageInfo = await PackageInfo.fromPlatform();
 
-    await Tools.getData();
+      await Tools.getData();
 
-    await AdsHelper.init();
+      AdsHelper.init();
 
-    AppOpenAdManager appOpenAdManager = AppOpenAdManager();
-    await appOpenAdManager.loadAd();
+      AppOpenAdManager appOpenAdManager = AppOpenAdManager();
+      await appOpenAdManager.loadAd();
 
-    WidgetsBinding.instance
-        .addObserver(AppLifecycleReactor(appOpenAdManager: appOpenAdManager));
+      WidgetsBinding.instance
+          .addObserver(AppLifecycleReactor(appOpenAdManager: appOpenAdManager));
 
-    if (mounted) await Tools.checkAppVersion(context);
+      await Tools.checkAppVersion(context);
 
-    if (mounted) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) {
         return const HomePage();
       }));
+    } catch (e) {
+      Tools.logger.e(e);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) {
+        return const TestPage();
+      }));
     }
-    // } catch (e) {
-    //   Tools.logger.e(e);
-    //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) {
-    //     return const TestPage();
-    //   }));
-    // }
   }
 
   @override

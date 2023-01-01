@@ -18,12 +18,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "NewYear Gift Prank Call", //TODO: AppName
+      title: "Choo Choo Prank Call", //TODO: AppName
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: const EntryPointPage(
-        dataUrl: "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/NY%20Gift/data.json",
+        dataUrl: "https://raw.githubusercontent.com/Amegodev/amegodev.github.io/master/api/fakecall/choochoo/allData.json",
         child: SplashPage(),
       ),
       debugShowCheckedModeBanner: false,

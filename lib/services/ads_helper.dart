@@ -43,6 +43,8 @@ class AdsHelper {
       default: //"any"
         break;
     }
+
+    return;
   }
 
   Widget getBannerAd() {
